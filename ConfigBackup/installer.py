@@ -7,7 +7,7 @@ libs = [
 
 
 def create_file(cmd):
-    with open('installed_libs.txt', 'w+') as file:
+    with open('installed_libs.txt', 'w+'):
         os.system('{} > installed_libs.txt'.format(cmd))
 
 
