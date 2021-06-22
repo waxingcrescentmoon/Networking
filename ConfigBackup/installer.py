@@ -13,10 +13,11 @@ def create_file(cmd):
 
 def check_libs():
     not_installed_libs = []
+    file = open('installed_libs.txt').read()
     for lib in libs:
-        if lib in open('installed_libs.txt').read():
+        if lib in file:
             print('{} is currently installed.'.format(lib))
-        elif lib not in open('installed_libs.txt').read():
+        elif lib not in file:
             not_installed_libs.append(lib)
             print(not_installed_libs)
     return not_installed_libs
