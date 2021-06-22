@@ -2,7 +2,12 @@ import getpass
 import netmiko
 import os
 from installer import install_libs
+from installer import create_file
 
+"""
+Update the network_addresses list to a range of
+addresses that you want to pull configurations for.
+"""
 network_addresses = [
     '192.168.1.106',
     '10.10.10.1',
@@ -136,9 +141,9 @@ def device_type_menu():
     """
     count = 1
     device_dictionary = {}
-    for device in device_types:
-        print(str(count) + '. ' + device)
-        device_dictionary.update({str(count): str(device)})
+    for key, value in show_config_cmd.items():
+        print("{}. {}".format(count, key))
+        device_dictionary.update({str(count): str(key)})
         count = count + 1
     choose_device = str(input('Select the number corresponding to the type of device OS you are connecting to: '))
     return device_dictionary[choose_device]
@@ -187,6 +192,7 @@ def running_config():
 
 
 if __name__ == '__main__':
+    create_file('pip list')
     install_libs()
     create_backup_directory()
     running_config()
