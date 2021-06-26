@@ -5,31 +5,32 @@ libs = [
     'netmiko',
 ]
 
+class InstallLibraries:
 
-def create_file(cmd):
-    with open('installed_libs.txt', 'w+'):
-        os.system('{} > installed_libs.txt'.format(cmd))
-
-
-def check_libs():
     not_installed_libs = []
-    file = open('installed_libs.txt').read()
-    for lib in libs:
-        if lib in file:
-            print('{} is currently installed.'.format(lib))
-        elif lib not in file:
-            not_installed_libs.append(lib)
-            print(not_installed_libs)
-    return not_installed_libs
+    write_file = open('installed_libs.txt', 'w+')
+    read_file = open('installed_libs.txt', 'r+')
 
 
-def install_libs():
-    for install in check_libs():
-        os.system('pip3 install {}'.format(install))
-        print(install)
-    os.system('rm installed_libs.txt')
+    def create_file(cmd):
+        with InstallLibraries.write_file:
+            os.system('{} > installed_libs.txt'.format(cmd))
+
+
+    def check_libs():
+        for lib in libs:
+            if lib not in InstallLibraries.read_file.read():
+                InstallLibraries.not_installed_libs.append(lib)
+                print("Not Installed: {}".format(InstallLibraries.not_installed_libs))
+        return InstallLibraries.not_installed_libs
+
+
+    def install_libs():
+        for install in InstallLibraries.check_libs():
+            os.system('pip3 install {}'.format(install))
+        os.system('rm installed_libs.txt')
 
 
 if __name__ == '__main__':
-    create_file('pip list')
-    install_libs()
+    InstallLibraries.create_file('pip list')
+    InstallLibraries.install_libs()

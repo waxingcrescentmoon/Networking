@@ -4,10 +4,10 @@ import os
 from installer import install_libs
 from installer import create_file
 
-"""
+'''
 Update the network_addresses list to a range of
 addresses that you want to pull configurations for.
-"""
+'''
 network_addresses = [
     '192.168.1.106',
     '10.10.10.1',
@@ -82,14 +82,14 @@ def create_backup_directory():
 
 
 def device_type_menu():
-    """
+    '''
     This should create a dictionary to associate the numbers in the menu to
     a device type
-    """
+    '''
     count = 1
     device_dictionary = {}
     for key, value in show_config_cmd.items():
-        print("{}. {}".format(count, key))
+        print('{}. {}'.format(count, key))
         device_dictionary.update({str(count): str(key)})
         count = count + 1
     choose_device = str(input('Select the number corresponding to the type of device OS you are connecting to: '))
@@ -97,10 +97,9 @@ def device_type_menu():
 
 
 def get_credentials():
-    """
+    '''
     Prompt for username and password.
-    :return:
-    """
+    '''
     username = input('Enter Username: ')
     password = None
     while not password:
