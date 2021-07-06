@@ -7,14 +7,14 @@ Quick network tasks to assit with network planning and implementation.
 """
 
 
-
 class NetworkDetails:
     network = sys.argv[1]
+
     def available_bits():
         """
-        Determine the number of available host bits based on CIDR input. This can be used
-        to determine the number of available hosts in the subnet.
-
+        Determine the number of available host bits based on CIDR input.
+        This can be used to determine the number of available hosts
+        in the subnet.
         """
         net = NetworkDetails.network
         index = net.index("/")
@@ -23,21 +23,19 @@ class NetworkDetails:
         if available_bits in range(1, 32):
             return available_bits
 
-
     def num_hosts():
         """
-        Take output of available_bits and return the number of hosts available on the subnet
-        using the formula ((2**n)-2) or ((2**hostbits)-2).
+        Take output of available_bits and return the number of hosts available
+        on the subnet using the formula ((2**n)-2) or ((2**hostbits)-2).
         """
         num_bits = NetworkDetails.available_bits()
         num_hosts = ((2**num_bits - 2))
         return num_hosts
 
-
-
     def subnet_mask():
         """
-        subnet_mask() uses get_mask(), which uses binary_count() to determine the subnet mask.
+        subnet_mask() uses get_mask(), which uses binary_count() to determine
+        the subnet mask.
         """
         net = NetworkDetails.network
         index = net.index("/")
@@ -46,20 +44,19 @@ class NetworkDetails:
 
         if bits_on <= 8:
             octet_bits = NetworkDetails.get_mask(bits_on)
-            return "{}.{}.{}.{}".format(octet_bits,0,0,0)
+            return "{}.{}.{}.{}".format(octet_bits, 0, 0, 0)
         if bits_on >= 9 and bits_on <= 16:
             bits_on = (bits_on - 8)
             octet_bits = NetworkDetails.get_mask(bits_on)
-            return "{}.{}.{}.{}".format(255,octet_bits,0,0)
+            return "{}.{}.{}.{}".format(255, octet_bits, 0, 0)
         if bits_on >= 17 and bits_on <= 24:
             bits_on = (bits_on - 16)
             octet_bits = NetworkDetails.get_mask(bits_on)
-            return "{}.{}.{}.{}".format(255,255,octet_bits,0)
+            return "{}.{}.{}.{}".format(255, 255, octet_bits, 0)
         if bits_on >= 25 and bits_on <= 32:
             bits_on = (bits_on - 24)
             octet_bits = NetworkDetails.get_mask(bits_on)
-            return "{}.{}.{}.{}".format(255,255,255,octet_bits)
-
+            return "{}.{}.{}.{}".format(255, 255, 255, octet_bits)
 
     def get_mask(bits_on):
         octet = NetworkDetails.binary_count(bits_on)
@@ -69,11 +66,10 @@ class NetworkDetails:
                 sum_bits = sum_bits + keys
         return sum_bits
 
-
     def binary_count(bits_on):
         """
-        subnet_mask determines the Octet and octet_bits determines how many bits are on/off
-        in the subnet mask.
+        subnet_mask determines the Octet and octet_bits determines how many
+        bits are on/off in the subnet mask.
         """
         octet = [
             128,
@@ -94,22 +90,24 @@ class NetworkDetails:
         return bits_on_off
 
 
-
 class Subnetting:
-    #network = IPv4Network(sys.argv[1])
-
+    """
+    network = IPv4Network(sys.argv[1])
+    """
     def subnet_mask():
         """
         Return the Subnet Mask.
         :return:
         """
         return Subnetting.network.netmask
+
     def net_id():
         """
         Return the Network ID
 
         """
         return Subnetting.network.network_address
+
     def broacast_id():
         """
         Return the Broadcast ID.
@@ -124,11 +122,12 @@ if __name__ == '__main__':
         print("Number of hosts: {}".format(NetworkDetails.num_hosts()))
     except ValueError:
         print("""
-        Please input an appropriate value using CIDR notation. 
+        Please input an appropriate value using CIDR notation.
         Ex.) 10.1.1.1/26
         """)
     except TypeError:
         print("""
-                Please input an appropriate value using CIDR notation. 
+                Please input an appropriate value using CIDR notation.
                 Ex.) 10.1.1.1/26
                 """)
+
