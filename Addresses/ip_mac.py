@@ -7,7 +7,8 @@ import sys
 """
 Used to return the FQDN, IP Address and MAC Address
 """
-
+# Import modules from subnet_calc.py to take user input and ping sweep a range of devices.
+# Use the ping sweep to prevent users from modify this file with IP addresses.
 IP = ["192.168.1.140", "192.168.1.130"]
 
 
